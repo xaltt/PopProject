@@ -8,81 +8,117 @@ import java.util.EmptyStackException;
  */
 public final class LinkedStack<T> implements StackInterface<T> {
 
-		
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static void main(String[]args) {
-		LinkedStack first = new LinkedStack();
-		
-		//adding values into stack
-		first.push(1);
-		first.push(2);
-		first.push(3);
-		first.push(4);
-		
-		//peeking at top value
-		System.out.println("Top value is: " + first.peek());
-		
-		//clearing values
-		System.out.println("Clearing values...");
-		first.clear(first);
-		
-		//check if empty
-		System.out.println("Is stack empty: " + first.isEmpty());
+	public static void main(String[] args) {
+		String expression = "a+b*(c^d-e)^(f+g*h)-i";
+		System.out.println(convertToPostfix(expression));
 	}
 
 	Node top;
-	
-	public class Node{
-		 T data;
-		 Node next;
+
+	public class Node {
+		T data;
+		Node next;
 	}
-	
-	public LinkedStack(){
+
+	public LinkedStack() {
 		top = null;
 	}
-	
+
 	public void push(T data) {
 		Node extraNode = top;
 		top = new Node();
 		top.data = data;
 		top.next = extraNode;
 	}
-	
+
 	public T pop() {
-		if(top == null) {
+		if (top == null) {
 			System.out.println("Stack is empty");
 		}
 		T data = top.data;
 		top = top.next;
 		return data;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public T peek() {
-		if(top == null) {
+		if (top == null) {
 			return null;
-		}else
-		return (T) top.data;
+		} else
+			return (T) top.data;
 	}
-	
+
 	public boolean isEmpty() {
-		if(top == null) {
+		if (top == null) {
 			return true;
-		}else
+		} else
 			return false;
 	}
-	
+
 	public void clear(LinkedStack<T> userStack) {
-		if(top != null) {
+		if (top != null) {
 			userStack.pop();
 			clear(userStack);
 		}
 	}
 
-	public T convertToPostfix(T infix) {
-		
-		
-		
-		return null;
+	// This method looks for the precedence of each operator and returns
+	// higher value for higher precedence.
+	static int priority(char ch) {
+		switch (ch) {
+		case '+':
+		case '-':
+			return 1;
+		case '*':
+		case '/':
+			return 2;
+		case '^':
+			return 3;
+
+		}
+		return -1;
 	}
-} 
+
+	public static String convertToPostfix(String infix) {
+
+		// initializing empty String for result
+		String result = new String("");
+
+		// initializing empty stack
+		LinkedStack<Character> stack = new LinkedStack<>();
+
+		for (int i = 0; i < infix.length(); ++i) {
+			char c = infix.charAt(i);
+			//If is operand, add to output
+			if (Character.isLetterOrDigit(c)) {
+				result += c;
+
+			//if is '(' then push
+			}else if (c == '(') {
+				stack.push(c);
+			
+			//if is ')' then pop and output stack until the '(' is found
+			}else if (c == ')') {
+				while (!stack.isEmpty() && stack.peek() != '(')
+					result += stack.pop();
+
+				stack.pop();
+			} else {//if an operator is encountered, then...
+				while (!stack.isEmpty() && priority(c) <= priority(stack.peek())) {
+
+					result += stack.pop();
+				}
+				stack.push(c);
+			}
+
+		}
+
+		// pop all operators from stack
+		while (!stack.isEmpty()) {
+			if (stack.peek() == '(')
+				return "Invalid Expression";
+			result += stack.pop();
+		}
+		return result;
+	}
+}

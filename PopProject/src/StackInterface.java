@@ -21,5 +21,7 @@ public interface StackInterface<T>
    /** Removes all entries from this stack. */
    public void clear(LinkedStack<T> userStack);
    
-   public T convertToPostfix(T infix);
+   public static String convertToPostfix(String infix) {
+	return null;
+}
 } // end StackInterface

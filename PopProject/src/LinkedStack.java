@@ -9,7 +9,7 @@ import java.util.EmptyStackException;
 public final class LinkedStack<T> implements StackInterface<T> {
 
 	public static void main(String[] args) {
-		String expression = "a+b*(c^d-e)^(f+g*h)-i";
+		String expression = "a*b/(c-a)+d*e";
 		System.out.println(convertToPostfix(expression));
 	}
 

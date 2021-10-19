@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 import java.util.Arrays;
 
 public class ResizableArrayStack<T> implements StackInterface<T> {
@@ -7,13 +7,6 @@ public class ResizableArrayStack<T> implements StackInterface<T> {
 	private boolean integrityOK = false;
 	private static final int DEFAULT_CAPACITY = 25; // Initial capacity of stack
 	private static final int MAX_CAPACITY = 10000;
-	
-	public static void main(String[]args) {
-		String exp = "231*+9-";
-		System.out.println("postfix eval: " + evaluatePostfix(exp));
-		
-		
-	}
 	
 	/** Creates an empty stack whose initial capacity is 25. */
 	public ResizableArrayStack() {
@@ -251,7 +244,7 @@ public class ResizableArrayStack<T> implements StackInterface<T> {
 
 	}
 	
-	 static int evaluatePostfix(String exp)
+	public int evaluatePostfix(String exp)
 	    {
 	        //initialize stack
 	        ResizableArrayStack<Integer> stack=new ResizableArrayStack<>();

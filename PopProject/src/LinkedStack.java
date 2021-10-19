@@ -1,4 +1,3 @@
-import java.util.EmptyStackException;
 
 /**
  * A class of stacks whose entries are stored in a chain of nodes.
@@ -8,10 +7,6 @@ import java.util.EmptyStackException;
  */
 public final class LinkedStack<T> implements StackInterface<T> {
 
-	public static void main(String[] args) {
-		String expression = "a*b/(c-a)+d*e";
-		System.out.println(convertToPostfix(expression));
-	}
 
 	Node top;
 
@@ -40,7 +35,7 @@ public final class LinkedStack<T> implements StackInterface<T> {
 		return data;
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	public T peek() {
 		if (top == null) {
 			return null;
@@ -79,7 +74,7 @@ public final class LinkedStack<T> implements StackInterface<T> {
 		return -1;
 	}
 
-	public static String convertToPostfix(String infix) {
+	public String convertToPostfix(String infix) {
 
 		// initializing empty String for result
 		String result = new String("");
